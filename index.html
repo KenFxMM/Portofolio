@@ -51,13 +51,15 @@
         nav { 
             background: rgba(4, 9, 20, 0.8); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
             padding: 20px 5%; position: fixed; width: 100%; top: 0; z-index: 100;
-            display: flex; justify-content: center; gap: 40px; border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             transition: all 0.3s;
         }
         nav.scrolled { padding: 15px 5%; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); }
+        .nav-links { display: flex; gap: 40px; align-items: center; }
         nav a { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; transition: color 0.3s; }
         nav a:hover { color: var(--text-main); }
-        nav a.logo-link { color: var(--accent-cyan); font-weight: 900; margin-right: auto; }
+        nav a.logo-link { color: var(--accent-cyan); font-weight: 900; }
+        .hamburger { display: none; color: var(--text-main); font-size: 1.5rem; cursor: pointer; }
 
         section { padding: 120px 5%; max-width: 1200px; margin: 0 auto; position: relative; }
         
@@ -198,8 +200,15 @@
             .hero-name { font-size: 2.5rem; }
             .section-header h2 { font-size: 2.5rem; }
             .contact-title { font-size: 3rem; }
-            nav { padding: 15px 5%; gap: 15px; flex-wrap: wrap; justify-content: space-between; }
-            nav a.logo-link { width: 100%; text-align: center; margin-bottom: 10px; }
+            nav { padding: 15px 5%; }
+            .hamburger { display: block; }
+            .nav-links { 
+                display: none; position: absolute; top: 100%; left: 0; width: 100%; 
+                background: rgba(4, 9, 20, 0.95); backdrop-filter: blur(20px);
+                flex-direction: column; gap: 20px; padding: 20px 0; 
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05); text-align: center;
+            }
+            .nav-links.active { display: flex; }
         }
     </style>
 </head>
@@ -207,11 +216,16 @@
 
     <nav>
         <a href="#hero" class="logo-link">Portofolio Digital</a>
-        <a href="#hero">About</a>
-        <a href="#experience">Pengalaman</a>
-        <a href="#skills">Keahlian</a>
-        <a href="#projects">Karya</a>
-        <a href="#publication">Publikasi Ilmiah</a>
+        <div class="hamburger">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+        <div class="nav-links">
+            <a href="#hero">About</a>
+            <a href="#experience">Pengalaman</a>
+            <a href="#skills">Keahlian</a>
+            <a href="#projects">Karya</a>
+            <a href="#publication">Publikasi Ilmiah</a>
+        </div>
     </nav>
 
     <section id="hero">
@@ -450,6 +464,21 @@
             window.addEventListener('scroll', () => {
                 if (window.scrollY > 50) nav.classList.add('scrolled');
                 else nav.classList.remove('scrolled');
+            });
+
+            // Mobile menu toggle
+            const hamburger = document.querySelector('.hamburger');
+            const navLinks = document.querySelector('.nav-links');
+            const navItems = document.querySelectorAll('.nav-links a');
+
+            hamburger.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+            });
+
+            navItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    navLinks.classList.remove('active');
+                });
             });
         });
     </script>
