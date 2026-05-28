@@ -1,0 +1,457 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portofolio | Kendrick Felix</title>
+    
+    <!-- Google Fonts: Inter untuk tampilan sangat bersih & Fira Code untuk aksen kode -->
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* TEMA: ORIGINAL VIBRANT DARK TECH */
+        :root {
+            --bg-main: #040914; /* Biru sangat gelap (hampir hitam) */
+            --bg-surface: rgba(15, 23, 42, 0.6); 
+            --accent-cyan: #06b6d4; /* Cyan terang profesional */
+            --accent-blue: #3b82f6; /* Biru korporat */
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+        
+        body { 
+            background-color: var(--bg-main); 
+            color: var(--text-main); 
+            font-family: 'Inter', sans-serif; 
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* Animated Background (Glow Biru/Cyan di sudut-sudut) */
+        body::before, body::after {
+            content: ''; position: fixed; width: 50vw; height: 50vw; border-radius: 50%; z-index: -1; filter: blur(100px); opacity: 0.15;
+            animation: breathe 15s infinite alternate;
+        }
+        body::before { top: -20%; left: -20%; background: var(--accent-blue); }
+        body::after { bottom: -20%; right: -20%; background: var(--accent-cyan); animation-delay: -5s; }
+        
+        @keyframes breathe {
+            0% { transform: scale(1) translate(0, 0); opacity: 0.1; }
+            100% { transform: scale(1.2) translate(5%, 5%); opacity: 0.2; }
+        }
+
+        /* NAVBAR (Sleek Top Bar) */
+        nav { 
+            background: rgba(4, 9, 20, 0.8); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            padding: 20px 5%; position: fixed; width: 100%; top: 0; z-index: 100;
+            display: flex; justify-content: center; gap: 40px; border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s;
+        }
+        nav.scrolled { padding: 15px 5%; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); }
+        nav a { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; transition: color 0.3s; }
+        nav a:hover { color: var(--text-main); }
+        nav a.logo-link { color: var(--accent-cyan); font-weight: 900; margin-right: auto; }
+
+        section { padding: 120px 5%; max-width: 1200px; margin: 0 auto; position: relative; }
+        
+        .section-header { text-align: left; margin-bottom: 60px; position: relative; }
+        .section-header h2 { font-size: 3rem; font-weight: 900; letter-spacing: -1px; color: #fff; }
+        .section-header .tag { font-family: 'Fira Code', monospace; color: var(--accent-blue); font-size: 1rem; margin-bottom: 10px; display: block; }
+        .section-header::after { content: ''; position: absolute; left: 0; bottom: -15px; width: 60px; height: 4px; background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue)); border-radius: 2px; }
+
+        /* HERO SECTION (Centered & Expansive) */
+        #hero {
+            display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+            min-height: 100vh; padding-top: 80px; position: relative;
+        }
+        
+        .hero-avatar {
+            width: 140px; height: 140px; border-radius: 50%; object-fit: cover;
+            border: 2px solid rgba(6, 182, 212, 0.5); padding: 5px;
+            box-shadow: 0 0 30px rgba(6, 182, 212, 0.2);
+            margin-bottom: 30px;
+            transition: transform 0.5s ease;
+        }
+        .hero-avatar:hover { transform: scale(1.1) rotate(5deg); box-shadow: 0 0 50px rgba(6, 182, 212, 0.4); }
+
+        .terminal-greet {
+            font-family: 'Fira Code', monospace; color: var(--accent-cyan);
+            background: rgba(6, 182, 212, 0.1); padding: 8px 20px; border-radius: 30px;
+            display: inline-flex; margin-bottom: 25px; border: 1px solid rgba(6, 182, 212, 0.2);
+        }
+        .terminal-greet span { border-right: 2px solid var(--accent-cyan); white-space: nowrap; overflow: hidden; animation: typing 3s steps(40, end), blink-caret .75s step-end infinite; }
+        
+        .hero-name { font-size: 4rem; font-weight: 900; line-height: 1.1; margin-bottom: 15px; letter-spacing: -1.5px; }
+        .hero-name span { background: linear-gradient(90deg, #fff, var(--text-muted)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        .hero-title { font-size: 1.5rem; color: var(--accent-blue); font-weight: 600; margin-bottom: 30px; letter-spacing: -0.5px; }
+        .hero-desc { font-size: 1.1rem; color: var(--text-muted); max-width: 700px; margin: 0 auto 50px auto; }
+        
+        .btn { display: inline-flex; align-items: center; gap: 10px; padding: 15px 35px; text-decoration: none; font-weight: 600; border-radius: 50px; transition: all 0.3s; font-size: 1rem; cursor: pointer; }
+        .btn-primary { background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue)); color: #fff; box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3); }
+        .btn-primary:hover { box-shadow: 0 15px 30px rgba(59, 130, 246, 0.5); transform: translateY(-3px); }
+        .btn-outline { background: transparent; color: var(--text-main); border: 1px solid rgba(255,255,255,0.2); margin-left: 15px; }
+        .btn-outline:hover { background: rgba(255,255,255,0.05); border-color: #fff; transform: translateY(-3px); }
+
+        /* VALUES (Asymmetrical Layout) */
+        .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; align-items: start; }
+        .value-card { background: var(--bg-surface); padding: 40px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05); transition: transform 0.3s, background 0.3s; }
+        /* Membuat grid asimetris */
+        .value-card:nth-child(2) { transform: translateY(40px); }
+        .value-card:nth-child(3) { transform: translateY(80px); }
+        
+        .value-card:hover { background: rgba(30, 41, 59, 0.8); border-color: rgba(6, 182, 212, 0.3); }
+        .value-card:hover i { transform: scale(1.2); color: var(--accent-cyan); }
+        .value-card i { font-size: 2.5rem; color: var(--accent-blue); margin-bottom: 25px; transition: all 0.3s; display: block; }
+        .value-card h3 { font-size: 1.3rem; margin-bottom: 15px; font-weight: 800; color: #fff; }
+        .value-card p { color: var(--text-muted); font-size: 0.95rem; }
+        
+        @media (max-width: 900px) {
+            .values-grid { grid-template-columns: 1fr; gap: 20px; }
+            .value-card:nth-child(2), .value-card:nth-child(3) { transform: none; }
+        }
+
+        /* EXPERIENCE (Neon Timeline) */
+        .timeline-container { position: relative; max-width: 800px; margin: 0 auto; padding-left: 40px; border-left: 2px solid rgba(59, 130, 246, 0.2); }
+        .timeline-item { position: relative; padding-bottom: 50px; }
+        .timeline-item:last-child { padding-bottom: 0; }
+        .timeline-dot { position: absolute; left: -49px; top: 0; width: 16px; height: 16px; border-radius: 50%; background: var(--bg-main); border: 3px solid var(--accent-cyan); box-shadow: 0 0 10px var(--accent-cyan); transition: all 0.3s; }
+        .timeline-item:hover .timeline-dot { background: var(--accent-cyan); transform: scale(1.3); }
+        
+        .timeline-content { background: var(--bg-surface); padding: 30px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.02); transition: transform 0.3s; }
+        .timeline-item:hover .timeline-content { transform: translateX(10px); border-color: rgba(255,255,255,0.1); }
+        .time-badge { font-family: 'Fira Code', monospace; color: var(--accent-cyan); font-size: 0.9rem; margin-bottom: 10px; display: inline-block; background: rgba(6, 182, 212, 0.1); padding: 5px 12px; border-radius: 20px; }
+        .timeline-content h3 { font-size: 1.4rem; color: #fff; font-weight: 800; margin-bottom: 5px; }
+        .timeline-content h4 { font-size: 1rem; color: var(--accent-blue); margin-bottom: 15px; font-weight: 600; }
+        .timeline-content p { color: var(--text-muted); font-size: 0.95rem; }
+
+        /* SKILLS (Floating Badges) */
+        .skills-wrapper { display: flex; flex-wrap: wrap; gap: 15px; justify-content: flex-start; }
+        .skill-badge { 
+            background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); padding: 15px 25px; border-radius: 12px; 
+            font-size: 1rem; font-weight: 600; color: var(--text-main); display: flex; align-items: center; gap: 10px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: default;
+        }
+        .skill-badge:hover { background: var(--accent-blue); color: #fff; border-color: var(--accent-blue); transform: translateY(-5px) scale(1.05); box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3); }
+
+        /* PROJECTS (Zig-Zag Layout) */
+        .project-row { display: flex; align-items: center; gap: 60px; margin-bottom: 100px; }
+        .project-row:nth-child(even) { flex-direction: row-reverse; }
+        .project-img-container { flex: 1; border-radius: 20px; overflow: hidden; position: relative; box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+        .project-img-container img { width: 100%; height: auto; display: block; transition: transform 0.6s ease; }
+        .project-row:hover .project-img-container img { transform: scale(1.05); }
+        
+        .project-info { flex: 1; }
+        .project-info h3 { font-size: 2rem; font-weight: 900; color: #fff; margin-bottom: 20px; line-height: 1.2; }
+        .project-info p { color: var(--text-muted); font-size: 1.05rem; margin-bottom: 30px; }
+        .tech-stack { font-family: 'Fira Code', monospace; color: var(--accent-cyan); font-size: 0.9rem; background: rgba(6, 182, 212, 0.05); padding: 10px 20px; border-left: 3px solid var(--accent-cyan); margin-bottom: 25px; }
+        .btn-demo { display: inline-flex; align-items: center; gap: 8px; font-size: 1.1rem; font-weight: 600; color: var(--accent-cyan); text-decoration: none; transition: all 0.3s; }
+        .btn-demo:hover { color: #fff; text-shadow: 0 0 10px var(--accent-cyan); transform: translateX(5px); }
+        
+        @media (max-width: 900px) {
+            .project-row, .project-row:nth-child(even) { flex-direction: column; gap: 30px; margin-bottom: 60px; }
+        }
+
+        /* PUBLIKASI ILMIAH */
+        .pub-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+        .pub-card { background: rgba(255,255,255,0.02); padding: 30px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); transition: transform 0.3s; }
+        .pub-card:hover { transform: translateY(-5px); border-color: rgba(6, 182, 212, 0.3); }
+        .pub-card h3 { color: #fff; font-size: 1.5rem; margin-bottom: 10px; line-height: 1.4; }
+        .pub-meta { color: var(--accent-cyan); font-size: 0.95rem; margin-bottom: 15px; font-weight: 600; display: flex; gap: 15px; flex-wrap: wrap; }
+        .pub-meta span i { margin-right: 5px; }
+        .pub-card p { color: var(--text-muted); font-size: 1rem; margin-bottom: 20px; line-height: 1.6; }
+
+        /* ACHIEVEMENT */
+        .achieve-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .achieve-card { display: flex; gap: 20px; align-items: center; background: rgba(255,255,255,0.02); padding: 30px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); }
+        .achieve-icon { width: 60px; height: 60px; border-radius: 50%; background: rgba(59, 130, 246, 0.1); display: flex; align-items: center; justify-content: center; color: var(--accent-blue); font-size: 1.5rem; flex-shrink: 0; }
+        .achieve-text h4 { color: #fff; font-size: 1.1rem; font-weight: 700; margin-bottom: 5px; }
+        .achieve-text p { color: var(--text-muted); font-size: 0.9rem; margin: 0; }
+
+        /* CONTACT (Mega Footer) */
+        #contact { padding: 120px 5% 80px 5%; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 100px; background: radial-gradient(circle at 50% 100%, rgba(59, 130, 246, 0.1), transparent 70%); }
+        .contact-title { font-size: 4rem; font-weight: 900; color: #fff; margin-bottom: 20px; letter-spacing: -2px; }
+        .contact-desc { font-size: 1.2rem; color: var(--text-muted); max-width: 600px; margin: 0 auto 50px auto; }
+        .social-links { display: flex; justify-content: center; gap: 20px; margin-top: 50px; }
+        .social-icon { width: 50px; height: 50px; border-radius: 50%; background: rgba(255,255,255,0.05); display: flex; align-items: center; justify-content: center; color: var(--text-main); font-size: 1.2rem; transition: all 0.3s; text-decoration: none; }
+        .social-icon:hover { background: var(--accent-cyan); color: #000; transform: translateY(-5px); }
+        .copyright { margin-top: 80px; color: rgba(255,255,255,0.3); font-size: 0.9rem; font-family: 'Fira Code', monospace; }
+
+        /* ANIMATIONS (Scroll Reveal) */
+        @keyframes typing { from { width: 0 } to { width: 100% } }
+        @keyframes blink-caret { from, to { border-color: transparent } 50% { border-color: var(--accent-cyan); } }
+        
+        .reveal { opacity: 0; transform: translateY(50px); transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .reveal-left { opacity: 0; transform: translateX(-50px); transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .reveal-right { opacity: 0; transform: translateX(50px); transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .reveal.active, .reveal-left.active, .reveal-right.active { opacity: 1; transform: translate(0); }
+        
+        /* Mobile fixes */
+        @media (max-width: 768px) {
+            .hero-name { font-size: 2.5rem; }
+            .section-header h2 { font-size: 2.5rem; }
+            .contact-title { font-size: 3rem; }
+            nav { padding: 15px 5%; gap: 15px; flex-wrap: wrap; justify-content: space-between; }
+            nav a.logo-link { width: 100%; text-align: center; margin-bottom: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#hero" class="logo-link">Portofolio Digital</a>
+        <a href="#hero">About</a>
+        <a href="#experience">Pengalaman</a>
+        <a href="#skills">Keahlian</a>
+        <a href="#projects">Karya</a>
+        <a href="#publication">Publikasi Ilmiah</a>
+    </nav>
+
+    <section id="hero">
+        <img src="diri.jpg" alt="Foto Profil" class="hero-avatar reveal">
+        <div class="terminal-greet reveal"><span class="typing-text">Halo, perkenalkan saya :</span></div>
+        <h1 class="hero-name reveal"><span>Kendrick Felix</span></h1>
+        <h2 class="hero-title reveal">Risk Management & General Affair | Information Systems</h2>
+        <p class="hero-desc reveal">Seorang mahasiswa Sistem Informasi yang memadukan keahlian teknis pengembangan web dan manajemen basis data dengan ketajaman audit operasional serta komunikasi strategis, untuk mendukung tata kelola sistem perusahaan yang efisien dan aman. Memiliki pengalaman sebagai General Affair dalam persiapan memenuhi kondisi yang dibutuhkan perusahaan dengan manajemen dan komunikasi yang aktif.</p>
+        <div class="hero-cta reveal">
+            <a href="#contact" class="btn btn-primary">Mari Berkolaborasi</a>
+            <a href="#projects" class="btn btn-outline">Lihat Karya</a>
+        </div>
+    </section>
+
+    <section id="values">
+        <div class="values-grid">
+                        <div class="value-card reveal" style="transition-delay: 0s;">
+                <i class="fa-solid fa-layer-group"></i>
+                <h3>Arsitektur Skalabel</h3>
+                <p>Merancang pondasi sistem informasi yang kuat dan dapat berkembang seiring dengan kebutuhan operasional harian perusahaan.</p>
+            </div>
+                        <div class="value-card reveal" style="transition-delay: 0.1s;">
+                <i class="fa-solid fa-fingerprint"></i>
+                <h3>Keamanan & Kepatuhan</h3>
+                <p>Mengutamakan standar keamanan data dan kepatuhan prosedur regulasi internal dalam setiap baris kode yang ditulis.</p>
+            </div>
+                        <div class="value-card reveal" style="transition-delay: 0.2s;">
+                <i class="fa-solid fa-bolt-lightning"></i>
+                <h3>Otomatisasi Cepat</h3>
+                <p>Memangkas birokrasi dan kendala administratif melalui sistem otomasi yang tepat sasaran dan mudah digunakan.</p>
+            </div>
+                    </div>
+    </section>
+
+    <!-- PENGALAMAN (BARU) -->
+    <section id="experience">
+        <div class="section-header reveal">
+            <span class="tag">&lt;career_path&gt;</span>
+            <h2>Pengalaman Karir / Kerja</h2>
+        </div>
+        <div class="timeline-container">
+                        <div class="timeline-item reveal-right">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <span class="time-badge">Nov 2023 - Saat ini</span>
+                    <h3>Risk Management & General Affair Administrator</h3>
+                    <h4><i class="fa-regular fa-building"></i> PT Capella Dinamik Nusantara</h4>
+                    <p>- Spesialis Pengadaan dan Inventaris<br>- Membantu proses rekrutmen HR dan proses administrasi<br>- Membantu Pemeliharaan & Perbaikan untuk perusahaan<br>- Berkomunikasi dan bernegosiasi dengan vendor untuk Pembelian dan MR (pemeliharaan & perbaikan)<br>- Mengelola anggota Outsourcing untuk acara, permintaan, dan sebagainya<br>- Memenuhi kebutuhan Manajemen<br>- Analisis dan Verifikasi susunan budget/anggaran acara<br>- Menangani pembelian, perbaikan perangkat, dan inventaris untuk Kantor Regional dan 6 Kantor Cabang Penjualan di Batam<br>- Menjual inventaris perusahaan sesuai instruksi/permintaan<br>- Kontrol Kualitas untuk pembelian dan kinerja outsourcing<br>- Komunikasi dan negosiasi tergantung pada situasi atau tugas yang diberikan</p>
+                </div>
+            </div>
+                        <div class="timeline-item reveal-right">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <span class="time-badge">Mei 2022 - Des 2022</span>
+                    <h3>Storeman</h3>
+                    <h4><i class="fa-regular fa-building"></i> PT Ethic Food</h4>
+                    <p>Fokus pada operasional logistik dan pergudangan.<br><strong>Keahlian:</strong> Sorting dan Category Management.</p>
+                </div>
+            </div>
+                    </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+        <div class="section-header reveal">
+            <span class="tag">&lt;core_competencies&gt;</span>
+            <h2>Keahlian Teknis</h2>
+        </div>
+        <div class="skills-wrapper">
+                            <div class="skill-badge reveal" style="transition-delay: 0s;">
+                    PHP                </div>
+                            <div class="skill-badge reveal" style="transition-delay: 0.1s;">
+                    MySQL                </div>
+                            <div class="skill-badge reveal" style="transition-delay: 0.2s;">
+                    HTML5 & CSS3                </div>
+                            <div class="skill-badge reveal" style="transition-delay: 0.3s;">
+                    Risk Management                </div>
+                            <div class="skill-badge reveal" style="transition-delay: 0.4s;">
+                    Analytical & Logical Thinking                </div>
+                            <div class="skill-badge reveal" style="transition-delay: 0s;">
+                    Blackbox Testing                </div>
+                            <div class="skill-badge reveal" style="transition-delay: 0.1s;">
+                    SDLC - Waterfall                </div>
+                            <div class="skill-badge reveal" style="transition-delay: 0.2s;">
+                    IT Support Analyst                </div>
+                            <div class="skill-badge reveal" style="transition-delay: 0.3s;">
+                    General Affair                </div>
+                            <div class="skill-badge reveal" style="transition-delay: 0.4s;">
+                    System Auditing                </div>
+                            <div class="skill-badge reveal" style="transition-delay: 0s;">
+                    Management Control                </div>
+                    </div>
+    </section>
+
+    <!-- PROYEK TERBAIK -->
+    <section id="projects">
+        <div class="section-header reveal">
+            <span class="tag">&lt;deployments&gt;</span>
+            <h2>Proyek Unggulan</h2>
+        </div>
+        
+                <div class="project-row">
+            <div class="project-img-container reveal-left">
+                <img src="absensi-pci.png" alt="Absensi PCI - Sistem Pengelolaan Kehadiran & Izin">
+            </div>
+            <div class="project-info reveal-right">
+                <h3>Absensi PCI - Sistem Pengelolaan Kehadiran & Izin</h3>
+                <p>Sistem absensi digital untuk skripsi menggunakan metodologi Waterfall. Dilengkapi fitur deteksi geolokasi dan verifikasi selfie tingkat lanjut untuk memastikan kehadiran autentik. Mencakup modul pengajuan izin terintegrasi.</p>
+                <div class="tech-stack">Stack: PHP, MySQL, Waterfall, Geolocation</div>
+                <a href="https://icp-absensi-proyek.infinityfreeapp.com/index.php" target="_blank" class="btn-demo">
+                                            <i class="fa-solid fa-arrow-up-right-from-square"></i> Lihat Demo
+                                    </a>
+            </div>
+        </div>
+                <div class="project-row">
+            <div class="project-img-container reveal-right">
+                <img src="lets-shine.png" alt="Bimbingan Belajar Let's Shine">
+            </div>
+            <div class="project-info reveal-left">
+                <h3>Bimbingan Belajar Let's Shine</h3>
+                <p>Sistem manajemen bimbingan belajar web end-to-end yang dibangun dari nol menggunakan native PHP, MySQL, dan Bootstrap. Dilengkapi fitur multi-language dan berhasil mendigitalisasi administrasi sehingga meningkatkan kecepatan pemrosesan data sebesar 40%.</p>
+                <div class="tech-stack">Stack: Native PHP, MySQL, Bootstrap</div>
+                <a href="https://lets-shine.universalis.web.id/index.php" target="_blank" class="btn-demo">
+                                            <i class="fa-solid fa-arrow-up-right-from-square"></i> Lihat Demo
+                                    </a>
+            </div>
+        </div>
+                <div class="project-row">
+            <div class="project-img-container reveal-left">
+                <img src="peminjaman-mobil.png" alt="Peminjaman Mobil Digital CDN">
+            </div>
+            <div class="project-info reveal-right">
+                <h3>Peminjaman Mobil Digital CDN</h3>
+                <p>Sistem pengajuan peminjaman kendaraan inventaris. Memiliki fitur monitoring jadwal kendaraan, pengajuan digital, dan pembuatan laporan penggunaan kendaraan secara real-time.</p>
+                <div class="tech-stack">Stack: PHP, MySQL, Web Architecture</div>
+                <a href="https://github.com/username-anda/peminjaman-mobil-cdn" target="_blank" class="btn-demo">
+                                            <i class="fa-brands fa-github"></i> Lihat Source Code
+                                    </a>
+            </div>
+        </div>
+            </section>
+
+    <!-- PUBLIKASI ILMIAH -->
+    <section id="publication">
+        <div class="section-header reveal">
+            <span class="tag">&lt;publication&gt;</span>
+            <h2>Publikasi Ilmiah</h2>
+        </div>
+        <div class="pub-grid">
+                        <div class="pub-card reveal" style="transition-delay: 0s;">
+                <h3>Sistem Pendukung Keputusan Pemilihan Pengajar Les untuk Siswa Lembaga Bimbingan Belajar Dengan Metode Simple Additive Weight</h3>
+                <div class="pub-meta">
+                    <span><i class="fa-solid fa-book-journal-whills"></i> JODENS</span>
+                    <span><i class="fa-regular fa-calendar-days"></i> 9 Des 2024</span>
+                </div>
+                <p>Penelitian ini mengembangkan Sistem Pendukung Keputusan (SPK) menggunakan metode Simple Additive Weighting (SAW) untuk membantu pemilihan pengajar les yang paling optimal bagi siswa di lembaga bimbingan belajar berdasarkan kriteria tertentu.</p>
+                <a href="https://journal.uvers.ac.id/index.php/jodens/article/view/253" target="_blank" class="btn-demo">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i> Tampilkan Publikasi
+                </a>
+            </div>
+                    </div>
+    </section>
+
+    <section id="achievements">
+        <div class="section-header reveal">
+            <span class="tag">&lt;certifications&gt;</span>
+            <h2>Penghargaan & Sertifikasi</h2>
+        </div>
+        <div class="achieve-grid">
+                        <div class="achieve-card reveal">
+                <div class="achieve-icon"><i class="fa-solid fa-award"></i></div>
+                <div class="achieve-text">
+                    <h4>Sertifikasi Internal Audit ISO</h4>
+                    <p>Kualifikasi resmi dalam standar kepatuhan operasional untuk menjamin kualitas proses manajemen.</p>
+                                        <div style="margin-top: 15px; border-radius: 8px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); height: 220px; width: 100%;">
+                        <iframe src="sertif1.pdf#toolbar=0&navpanes=0&scrollbar=0" width="100%" height="100%" style="border: none; display: block;"></iframe>
+                    </div>
+                    <a href="sertif1.pdf" target="_blank" class="btn-demo" style="margin-top: 15px; font-size: 0.95rem; display: inline-flex;">
+                        <i class="fa-solid fa-expand"></i> Buka Layar Penuh
+                    </a>
+                                    </div>
+            </div>
+                        <div class="achieve-card reveal">
+                <div class="achieve-icon"><i class="fa-solid fa-certificate"></i></div>
+                <div class="achieve-text">
+                    <h4>Mempersiapkan Data untuk Model AI di Microsoft Fabric</h4>
+                    <p>Sertifikat penyelesaian program Online Short Course dari Dicoding & Microsoft Elevate Training Center.</p>
+                                        <div style="margin-top: 15px; border-radius: 8px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); height: 220px; width: 100%;">
+                        <iframe src="sertif2.pdf#toolbar=0&navpanes=0&scrollbar=0" width="100%" height="100%" style="border: none; display: block;"></iframe>
+                    </div>
+                    <a href="sertif2.pdf" target="_blank" class="btn-demo" style="margin-top: 15px; font-size: 0.95rem; display: inline-flex;">
+                        <i class="fa-solid fa-expand"></i> Buka Layar Penuh
+                    </a>
+                                    </div>
+            </div>
+                    </div>
+    </section>
+
+    <!-- MEGA FOOTER -->
+    <section id="contact">
+        <div class="reveal">
+            <h2 class="contact-title">Let's Build Something Great.</h2>
+            <p class="contact-desc">Mencari profesional IT yang dapat mengawinkan efisiensi sistem dengan keandalan operasional? Mari diskusikan peluang kolaborasi kita.</p>
+            <a href="mailto:kenfxmm2@gmail.com" class="btn btn-primary" style="font-size: 1.2rem; padding: 20px 50px;">Kirim Pesan Sekarang</a>
+            
+            <div class="social-links">
+                <a href="www.linkedin.com/in/kendrick-felix-20b196295" class="social-icon" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a href="https://github.com/username-anda" class="social-icon" target="_blank"><i class="fa-brands fa-github"></i></a>
+                <a href="mailto:kenfxmm2@gmail.com" class="social-icon"><i class="fa-solid fa-envelope"></i></a>
+            </div>
+            
+            <div class="copyright">
+                &copy; 2026 Kendrick Felix. System Online.
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Intersection Observer for Scroll Reveal Animations
+            const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+            const revealOptions = { threshold: 0.15, rootMargin: "0px 0px -50px 0px" };
+
+            const revealOnScroll = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) return;
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                });
+            }, revealOptions);
+
+            revealElements.forEach(el => revealOnScroll.observe(el));
+
+            // Navbar scroll effect
+            const nav = document.querySelector('nav');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) nav.classList.add('scrolled');
+                else nav.classList.remove('scrolled');
+            });
+        });
+    </script>
+</body>
+</html>
